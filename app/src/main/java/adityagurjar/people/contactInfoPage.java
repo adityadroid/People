@@ -1,8 +1,11 @@
 package adityagurjar.people;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,10 +23,13 @@ public class contactInfoPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ontact_info_page);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
         Intent intent = getIntent();
         String name = intent.getExtras().getString("name");
         String mail = intent.getExtras().getString("email");
-        final String phone = intent.getExtras().getString("phone");
+     final String phone = intent.getExtras().getString("phone");
+        getSupportActionBar().setTitle(name);
+
         emailInfo = (TextView) findViewById(R.id.textEmail);
         nameInfo = (TextView) findViewById(R.id.textName);
         phoneInfo = (TextView) findViewById(R.id.textNumber);

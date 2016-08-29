@@ -1,13 +1,17 @@
 package adityagurjar.people;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -61,7 +65,7 @@ public class searchActivity extends AppCompatActivity {
         setContentView(R.layout.search_activity_overlay);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        checkPermission();
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -478,6 +482,56 @@ public class searchActivity extends AppCompatActivity {
             prepareContactsData();
             findViewById(R.id.text_dot_loader).setVisibility(View.GONE);
             super.onPostExecute(o);
+        }
+    }
+    public void checkPermission(){
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+
+
+
+            ActivityCompat.requestPermissions(searchActivity.this,
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    1);
+
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+
+
+
+            ActivityCompat.requestPermissions(searchActivity.this,
+                    new String[]{Manifest.permission.READ_PHONE_STATE},
+                    1);
+
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+
+
+
+            ActivityCompat.requestPermissions(searchActivity.this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    1);
+
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+
+
+
+            ActivityCompat.requestPermissions(searchActivity.this,
+                    new String[]{Manifest.permission.WRITE_CONTACTS},
+                    1);
+
         }
     }
 
