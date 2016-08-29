@@ -3,6 +3,7 @@ package adityagurjar.people;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
@@ -125,7 +126,6 @@ public class searchActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
 
-        readContactData();
         searchView.setAdapter(adapter);
 
 
@@ -133,13 +133,16 @@ public class searchActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        mAdapter = new contactsListAdapter(ContactsRecyclerList);
+        mAdapter = new contactsListAdapter(ContactsRecyclerList,getApplicationContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
        // recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        prepareContactsData();
+        new contactLoader().execute();
+
+
+     //   prepareContactsData();
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -147,7 +150,9 @@ public class searchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Intent i = new Intent(searchActivity.this,Add_Contact.class);
+                startActivity(i);
+                    //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -335,7 +340,10 @@ public class searchActivity extends AppCompatActivity {
                             ContactsContract.CommonDataKinds.Email.CONTACT_ID
                                     + " = " + contactId, null, null);
 
-                    while (emails.moveToNext()) {
+                    if(emails.getCount()>0)
+                    {
+                        emails.moveToFirst();
+                        //while (emails.moveToNext()) {
 
                         // This would allow you get several email addresses
                         String emailAddress = emails
@@ -344,9 +352,15 @@ public class searchActivity extends AppCompatActivity {
 
                         //Log.e("email==>", emailAddress);
 
-                        email= emailAddress;
+                        email = emailAddress;
+                        //}
+                        emails.close();
                     }
-                    emails.close();
+                    else
+                    {
+                        email="";
+                    }
+
 
 
 
@@ -433,7 +447,7 @@ public class searchActivity extends AppCompatActivity {
     private void prepareContactsData() {
 
         for(int i = 0 ; i<nameValueArr.size();i++) {
-            contactitem mContact = new contactitem(nameValueArr.get(i),phoneValueArr.get(i));
+            contactitem mContact = new contactitem(nameValueArr.get(i),phoneValueArr.get(i),emailValueArr.get(i));
 
             ContactsRecyclerList.add(mContact);
         }
@@ -443,4 +457,28 @@ public class searchActivity extends AppCompatActivity {
 
         mAdapter.notifyDataSetChanged();
     }
+    public  class contactLoader extends AsyncTask
+    {
+        @Override
+        protected void onPreExecute() {
+            findViewById(R.id.text_dot_loader).setVisibility(View.VISIBLE);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            readContactData();
+            return null;
+        }
+
+
+
+        @Override
+        protected void onPostExecute(Object o) {
+            prepareContactsData();
+            findViewById(R.id.text_dot_loader).setVisibility(View.GONE);
+            super.onPostExecute(o);
+        }
+    }
+
 }

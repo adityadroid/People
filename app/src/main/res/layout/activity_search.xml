@@ -13,9 +13,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/darker_gray"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:background="@color/colorPrimary"
+
+        />
 
     <com.search.material.library.MaterialSearchView
         android:id="@+id/search_view"
@@ -29,4 +31,13 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical" />
 
+    <com.bhargavms.dotloader.DotLoader
+        android:layout_centerInParent="true"
+        android:id="@+id/text_dot_loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:color_array="@array/dot_colors"
+        app:dot_radius="4dp"
+        android:visibility="gone"
+        app:number_of_dots="3"/>
 </RelativeLayout>

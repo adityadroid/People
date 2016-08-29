@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="80dp"
     android:focusable="true"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
@@ -11,7 +11,20 @@
     android:background="?android:attr/selectableItemBackground"
     android:orientation="vertical">
 
+    <ImageView
+
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/img_contact"
+        android:src="@drawable/contact_item"/>
     <TextView
+        android:text="ggfg"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/img_contact"
         android:id="@+id/title"
         android:textColor="@color/title"
         android:textSize="16dp"
@@ -21,11 +34,21 @@
         android:layout_height="20dp" />
 
     <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/img_contact"
+        android:text="gfgfgfg"
         android:id="@+id/number_row"
         android:layout_below="@id/title"
         android:layout_width="match_parent"
         android:layout_height="20dp" />
 
-
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/img_contact"
+        android:text="gfgfgfg"
+        android:id="@+id/email_row"
+        android:layout_below="@id/number_row"
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
 </RelativeLayout>

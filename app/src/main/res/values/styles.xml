@@ -6,6 +6,7 @@
     </style>
 
     <style name="MaterialSearchViewStyle">
+        <item name="android:color">@color/colorPrimary</item>
         <item name="searchBackground">@android:color/white</item>
         <item name="searchVoiceIcon">@drawable/ic_action_voice_search</item>
         <item name="searchCloseIcon">@drawable/ic_action_navigation_close</item>
