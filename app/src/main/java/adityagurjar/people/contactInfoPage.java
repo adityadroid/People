@@ -55,7 +55,6 @@ public class contactInfoPage extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(contactInfoPage.this, ""+name+mail+phone, Toast.LENGTH_SHORT).show();
 
     }
 }

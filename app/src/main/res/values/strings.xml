@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ContactsAutoCompleteTextView</string>
+    <string name="app_name">People</string>
     <string name="title_activity_search">People</string>
-    <string name="title_activity_add__contact">Add_Contact</string>
+    <string name="title_activity_add__contact">Add Contact</string>
 </resources>

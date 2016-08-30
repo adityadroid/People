@@ -1,20 +1,14 @@
 package adityagurjar.people;
 
-import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -42,7 +36,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class searchActivity extends AppCompatActivity {
+public class searchActivity extends AppCompatActivity  {
 
     private MaterialSearchView searchView;
     private ArrayAdapter<String> adapter;
@@ -65,7 +59,7 @@ public class searchActivity extends AppCompatActivity {
         setContentView(R.layout.search_activity_overlay);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        checkPermission();
+        //checkPermission();
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -143,7 +137,8 @@ public class searchActivity extends AppCompatActivity {
        // recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        new contactLoader().execute();
+
+            new contactLoader().execute();
 
 
      //   prepareContactsData();
@@ -178,6 +173,7 @@ public class searchActivity extends AppCompatActivity {
         if (searchView.isSearchOpen()) {
             searchView.closeSearch();
         } else {
+            finish();
             super.onBackPressed();
         }
     }
@@ -471,7 +467,13 @@ public class searchActivity extends AppCompatActivity {
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            readContactData();
+
+                // TODO: Consider calling
+                readContactData();
+
+
+
+
             return null;
         }
 
@@ -484,55 +486,11 @@ public class searchActivity extends AppCompatActivity {
             super.onPostExecute(o);
         }
     }
-    public void checkPermission(){
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
 
 
 
 
-            ActivityCompat.requestPermissions(searchActivity.this,
-                    new String[]{Manifest.permission.CALL_PHONE},
-                    1);
-
-        }
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_PHONE_STATE)
-                != PackageManager.PERMISSION_GRANTED) {
 
 
-
-
-            ActivityCompat.requestPermissions(searchActivity.this,
-                    new String[]{Manifest.permission.READ_PHONE_STATE},
-                    1);
-
-        }
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
-
-
-
-
-            ActivityCompat.requestPermissions(searchActivity.this,
-                    new String[]{Manifest.permission.READ_CONTACTS},
-                    1);
-
-        }
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
-
-
-
-
-            ActivityCompat.requestPermissions(searchActivity.this,
-                    new String[]{Manifest.permission.WRITE_CONTACTS},
-                    1);
-
-        }
-    }
 
 }
